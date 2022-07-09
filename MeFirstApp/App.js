@@ -1,28 +1,33 @@
 import * as React from "react";
-import { Button, View, Text } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Button, View, Text, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Swipingscreen } from "./components/SwipingScreen";
-import { Homescreen } from "./components/Homescreen";
+import Swiperscreen from "./components/Swiper";
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate(Homescreen)}
+    <SafeAreaView>
+      <StatusBar style="auto" />
+      <Image
+        style={styles.image}
+        source={require("./assets/RecycleSymbol.png")}
       />
-    </View>
+      <Text>{"\n"}Welcome to MeFirstApp!</Text>
+      <Text>
+        Log in to begin your recycling journey{"\n"}
+        {"\n"}
+      </Text>
+      <Button
+        onPress={() => navigation.navigation(Swipingscreen)}
+        title={"Login"}
+      />
+    </SafeAreaView>
   );
 }
 
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
-    </View>
-  );
+function Swiperingerscreen({ navigation }) {
+  return <Swiperscreen />;
 }
 
 const Stack = createNativeStackNavigator();
@@ -32,8 +37,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-        <Stack.Screen name="Swipe" component={Swipingscreen} />
+        <Stack.Screen name="Details" component={Swiperingerscreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
