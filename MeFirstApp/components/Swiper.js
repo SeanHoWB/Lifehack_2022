@@ -3,17 +3,31 @@ import Swiper from "react-native-deck-swiper";
 import { StyleSheet, Image, View } from "react-native";
 
 // demo purposes only
-function* range(start, end) {
-  for (let i = start; i <= end; i++) {
-    yield i;
-  }
-}
+// function* range(start, end) {
+//   for (let i = start; i <= end; i++) {
+//     yield i;
+//   }
+// }
 
 class Swiperscreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: ['../assets/Images/Cardboard.jpg', '../assets/Images/Food container.jpg', '../assets/Images/Cardboard.jpg'],
+      cards: [
+        {img: require('../assets/Images/Image0.jpg')},
+        {img: require('../assets/Images/Image1.jpg')},
+        {img: require('../assets/Images/Image2.jpg')},
+        {img: require('../assets/Images/Image3.jpg')},
+        {img: require('../assets/Images/Image4.jpg')},
+        {img: require('../assets/Images/Image5.jpg')},
+        {img: require('../assets/Images/Image6.jpg')},
+        {img: require('../assets/Images/Image7.jpg')},
+        {img: require('../assets/Images/Image8.jpg')},
+        {img: require('../assets/Images/Image9.jpg')},
+        {img: require('../assets/Images/Image10.jpg')},
+        {img: require('../assets/Images/Image11.jpg')},
+        
+      ],
       swipedAllCards: false,
       swipeDirection: "",
       cardIndex: 0,
@@ -21,11 +35,10 @@ class Swiperscreen extends Component {
   }
 
   renderCard = (card, index) => {
-    console.log(`../assets/Images/Image${index}.jpg`)
     return (
       <Image 
         style={styles.card}
-        source={require(`../assets/Images/Image${index}.jpg`)}
+        source={card.img}
       />
     );
   };
