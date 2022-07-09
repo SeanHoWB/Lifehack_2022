@@ -1,40 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, SafeAreaView, Image } from 'react-native';
-import Exemple from './components/Swiper.js';
+import * as React from "react";
+import { Button, View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Swipingscreen } from "./components/SwipingScreen";
+import { Homescreen } from "./components/Homescreen";
 
-const handlePress = () => {
-  console.log("Returning Exemple")
-  return(<Exemple />)
-}
-
-export default function App() {
+function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <Image 
-        style={styles.image}
-        source={require('./assets/RecycleSymbol.png')} 
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate(Homescreen)}
       />
-      <Text>{'\n'}Welcome to MeFirstApp!</Text>
-      <Text>Log in to begin your recycling journey{'\n'}{'\n'}</Text>
-      <Button 
-        onPress = {handlePress}
-        title={"Login"}
-      />
-    </SafeAreaView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    height: 100,
-    width: 100,
-    resizeMode: 'contain',
-  },
-});
+function DetailsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Details Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Swipe" component={Swipingscreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+export default App;
