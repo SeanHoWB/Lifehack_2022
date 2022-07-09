@@ -3,13 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import CountDown from "react-native-countdown-component";
 
 const CountDownTimer = () => {
-  const [totalDuration, setTotalDuration] = useState(0);
-
-  useEffect(() => {
-    var d = "30";
-    setTotalDuration(d);
-  }, []);
-
+  const [totalDuration, setTotalDuration] = useState("30");
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>

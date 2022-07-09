@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Swiper from "react-native-deck-swiper";
 import { StyleSheet, Image, View } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from "@react-navigation/native";
+import CountDown from "react-native-countdown-component";
 // demo purposes only
 // function* range(start, end) {
 //   for (let i = start; i <= end; i++) {
@@ -15,18 +15,18 @@ class Swiperscreen extends Component {
     super(props);
     this.state = {
       cards: [
-        {img: require('../assets/Images/Image0.jpg'), ans: "right"},
-        {img: require('../assets/Images/Image1.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image2.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image3.jpg'), ans: "right"},
-        {img: require('../assets/Images/Image4.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image5.jpg'), ans: "right"},
-        {img: require('../assets/Images/Image6.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image7.jpg'), ans: "right"},
-        {img: require('../assets/Images/Image8.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image9.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image10.jpg'), ans: "left"},
-        {img: require('../assets/Images/Image11.jpg'), ans: "right"},
+        { img: require("../assets/Images/Image0.jpg"), ans: "right" },
+        { img: require("../assets/Images/Image1.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image2.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image3.jpg"), ans: "right" },
+        { img: require("../assets/Images/Image4.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image5.jpg"), ans: "right" },
+        { img: require("../assets/Images/Image6.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image7.jpg"), ans: "right" },
+        { img: require("../assets/Images/Image8.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image9.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image10.jpg"), ans: "left" },
+        { img: require("../assets/Images/Image11.jpg"), ans: "right" },
       ],
       cardIndex: 0,
       score: 0,
@@ -34,18 +34,13 @@ class Swiperscreen extends Component {
   }
 
   renderCard = (card) => {
-    return (
-      <Image 
-        style={styles.card}
-        source={card.img}
-      />
-    );
+    return <Image style={styles.card} source={card.img} />;
   };
 
   onSwiped = (type, card) => {
     this.state.cardIndex++;
     if (type == card.ans) {
-      this.state.score++
+      this.state.score++;
     }
   };
 
@@ -65,21 +60,27 @@ class Swiperscreen extends Component {
           // onTapCard={this.swipeLeft}
           cards={this.state.cards}
           cardIndex={this.state.cardIndex}
-          onSwipedLeft={() => this.onSwiped("left", this.state.cards[this.state.cardIndex])}
-          onSwipedRight={() => this.onSwiped("right", this.state.cards[this.state.cardIndex])}
+          onSwipedLeft={() =>
+            this.onSwiped("left", this.state.cards[this.state.cardIndex])
+          }
+          onSwipedRight={() =>
+            this.onSwiped("right", this.state.cards[this.state.cardIndex])
+          }
           cardVerticalMargin={80}
           renderCard={this.renderCard}
-          onSwipedAll={() => navigation.push("Congratulations", {score: this.state.score})}
+          onSwipedAll={() =>
+            navigation.push("Congratulations", { score: this.state.score })
+          }
           stackSize={3}
           stackSeparation={15}
           verticalSwipe={false}
           showSecondCard={false}
           overlayLabelStyle={{
             fontSize: 25,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             borderRadius: 10,
             padding: 10,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
           overlayLabels={{
             // bottom: {
@@ -157,14 +158,24 @@ class Swiperscreen extends Component {
         >
           {/* <Button onPress={() => this.swiper.swipeBack()} title="Swipe Back" /> */}
         </Swiper>
+        <CountDown
+          until={30}
+          size={20}
+          onFinish={() =>
+            navigation.push("Congratulations", { score: this.state.score })
+          }
+          digitStyle={{ backgroundColor: "none" }}
+          timeToShow={["S"]}
+          style={styles.countdown}
+        />
       </View>
     );
   }
 }
 
-export default function(props) {
+export default function (props) {
   const navigation = useNavigation();
-  return <Swiperscreen {...props} navigation = {navigation} />;
+  return <Swiperscreen {...props} navigation={navigation} />;
 }
 
 const styles = StyleSheet.create({
@@ -192,5 +203,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
     backgroundColor: "transparent",
+  },
+  countdown: {
+    position: "fixed",
+    left: "0px",
+    bottom: "0px",
+    height: "30px",
+    width: "100%",
   },
 });
