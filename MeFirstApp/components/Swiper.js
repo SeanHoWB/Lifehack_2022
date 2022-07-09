@@ -166,6 +166,7 @@ class Swiperscreen extends Component {
           }
           digitStyle={{ backgroundColor: "none" }}
           timeToShow={["S"]}
+          timeLabels={"none"}
           style={styles.countdown}
         />
       </View>
@@ -204,11 +205,5 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "transparent",
   },
-  countdown: {
-    position: "fixed",
-    left: "0px",
-    bottom: "0px",
-    height: "30px",
-    width: "100%",
-  },
+  countdown: {},
 });
