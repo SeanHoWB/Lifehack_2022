@@ -4,10 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Swiperscreen from './components/Swiper.js';
 import Homescreen from './components/Homescreen.js';
 
-const handlePress = () => {
-  console.log("Test run")
-}
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
