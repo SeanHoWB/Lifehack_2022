@@ -12,8 +12,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={{ headerShown: false }}
-      >
+        screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="Swiperscreen" component={Swiperscreen} />
         <Stack.Screen name="Congratulations" component={Congratulations} />

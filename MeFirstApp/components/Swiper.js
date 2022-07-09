@@ -30,7 +30,10 @@ class Swiperscreen extends Component {
       ],
       cardIndex: 0,
       score: 0,
+      isDone: false,
     };
+    this.handleFinish = this.handleFinish.bind(this);
+    this.handleSwipedAll = this.handleSwipedAll.bind(this);
   }
 
   renderCard = (card) => {
@@ -47,6 +50,17 @@ class Swiperscreen extends Component {
   // swipeLeft = () => {
   //   this.swiper.swipeLeft();
   // };
+
+  handleSwipedAll = (navigation) => {
+    this.state.isDone = true;
+    navigation.push("Congratulations", { score: this.state.score });
+  }
+
+  handleFinish = (navigation) => {
+    if (this.state.isDone == false) {
+      navigation.push("Congratulations", { score: this.state.score });
+    }
+  }
 
   render() {
     const { navigation } = this.props;
@@ -69,7 +83,7 @@ class Swiperscreen extends Component {
           cardVerticalMargin={80}
           renderCard={this.renderCard}
           onSwipedAll={() =>
-            navigation.push("Congratulations", { score: this.state.score })
+            this.handleSwipedAll(navigation)
           }
           stackSize={3}
           stackSeparation={15}
@@ -160,12 +174,13 @@ class Swiperscreen extends Component {
         </Swiper>
         <CountDown
           until={30}
-          size={20}
+          size={30}
           onFinish={() =>
-            navigation.push("Congratulations", { score: this.state.score })
+            this.handleFinish(navigation)
           }
           digitStyle={{ backgroundColor: "none" }}
           timeToShow={["S"]}
+          timeLabels={{s: null}}
           style={styles.countdown}
         />
       </View>
@@ -205,10 +220,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   countdown: {
-    position: "fixed",
-    left: "0px",
-    bottom: "0px",
-    height: "30px",
-    width: "100%",
+    textAlign: "center",
+    paddingTop: 10,
   },
 });
