@@ -1,11 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, Text, Image, Button, StyleSheet } from "react-native"
 
-const handlePress = (navigation) => {
-    console.log("Button pressed")
-    navigation.push("Swiperscreen")
-}
-
 const Homescreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
@@ -14,11 +9,11 @@ const Homescreen = ({ navigation }) => {
                 style={styles.image}
                 source={require('../assets/RecycleSymbol.png')} 
             />
-            <Text>{'\n'}Welcome to MeFirstApp!</Text>
-            <Text>Log in to begin your recycling journey{'\n'}{'\n'}</Text>
+            <Text>{'\n'}Welcome to MeFirstApp</Text>
+            <Text>Click here to begin your recycling journey!{'\n'}{'\n'}</Text>
             <Button 
-                onPress = {handlePress(navigation)}
-                title={"Login"}
+                onPress = {() => navigation.push("Swiperscreen")}
+                title={"Play Game"}
             />
         </SafeAreaView>
     );

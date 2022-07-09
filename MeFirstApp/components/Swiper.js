@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Swiper from "react-native-deck-swiper";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Image, View } from "react-native";
 
 // demo purposes only
 function* range(start, end) {
@@ -13,7 +13,7 @@ class Swiperscreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [...range(1, 50)],
+      cards: ['../assets/Images/Cardboard.jpg', '../assets/Images/Food container.jpg', '../assets/Images/Cardboard.jpg'],
       swipedAllCards: false,
       swipeDirection: "",
       cardIndex: 0,
@@ -21,17 +21,17 @@ class Swiperscreen extends Component {
   }
 
   renderCard = (card, index) => {
+    console.log(`../assets/Images/Image${index}.jpg`)
     return (
-      <View style={styles.card}>
-        <Text style={styles.text}>
-          {card} - {index}
-        </Text>
-      </View>
+      <Image 
+        style={styles.card}
+        source={require(`../assets/Images/Image${index}.jpg`)}
+      />
     );
   };
 
   onSwiped = (type) => {
-    console.log(`on swiped ${type}`);
+    console.log(`User has swiped ${type}`);
   };
 
   onSwipedAllCards = () => {
@@ -51,11 +51,9 @@ class Swiperscreen extends Component {
           ref={(swiper) => {
             this.swiper = swiper;
           }}
-          onSwiped={() => this.onSwiped("general")}
+          // onSwiped={() => this.onSwiped("general")}
           onSwipedLeft={() => this.onSwiped("left")}
           onSwipedRight={() => this.onSwiped("right")}
-          onSwipedTop={() => this.onSwiped("top")}
-          onSwipedBottom={() => this.onSwiped("bottom")}
           onTapCard={this.swipeLeft}
           cards={this.state.cards}
           cardIndex={this.state.cardIndex}
@@ -64,28 +62,37 @@ class Swiperscreen extends Component {
           onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
           stackSeparation={15}
+          verticalSwipe={false}
+          showSecondCard={false}
+          overlayLabelStyle={{
+            fontSize: 25,
+            fontWeight: 'bold',
+            borderRadius: 10,
+            padding: 10,
+            overflow: 'hidden',
+          }}
           overlayLabels={{
-            bottom: {
-              title: "BLEAH",
-              style: {
-                label: {
-                  backgroundColor: "black",
-                  borderColor: "black",
-                  color: "white",
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                },
-              },
-            },
+            // bottom: {
+            //   title: "BLEAH",
+            //   style: {
+            //     label: {
+            //       backgroundColor: "black",
+            //       borderColor: "black",
+            //       color: "white",
+            //       borderWidth: 1,
+            //     },
+            //     wrapper: {
+            //       flexDirection: "column",
+            //       alignItems: "center",
+            //       justifyContent: "center",
+            //     },
+            //   },
+            // },
             left: {
-              title: "NOPE",
+              title: "TRASH IT",
               style: {
                 label: {
-                  backgroundColor: "black",
+                  backgroundColor: "red",
                   borderColor: "black",
                   color: "white",
                   borderWidth: 1,
@@ -100,10 +107,10 @@ class Swiperscreen extends Component {
               },
             },
             right: {
-              title: "LIKE",
+              title: "RECYCLE",
               style: {
                 label: {
-                  backgroundColor: "black",
+                  backgroundColor: "green",
                   borderColor: "black",
                   color: "white",
                   borderWidth: 1,
@@ -117,28 +124,28 @@ class Swiperscreen extends Component {
                 },
               },
             },
-            top: {
-              title: "SUPER LIKE",
-              style: {
-                label: {
-                  backgroundColor: "black",
-                  borderColor: "black",
-                  color: "white",
-                  borderWidth: 1,
-                },
-                wrapper: {
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                },
-              },
-            },
+            // top: {
+            //   title: "SUPER LIKE",
+            //   style: {
+            //     label: {
+            //       backgroundColor: "black",
+            //       borderColor: "black",
+            //       color: "white",
+            //       borderWidth: 1,
+            //     },
+            //     wrapper: {
+            //       flexDirection: "column",
+            //       alignItems: "center",
+            //       justifyContent: "center",
+            //     },
+            //   },
+            // },
           }}
           animateOverlayLabelsOpacity
           animateCardOpacity
           swipeBackCard
         >
-          <Button onPress={() => this.swiper.swipeBack()} title="Swipe Back" />
+          {/* <Button onPress={() => this.swiper.swipeBack()} title="Swipe Back" /> */}
         </Swiper>
       </View>
     );
@@ -153,12 +160,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
   },
   card: {
-    flex: 1,
+    height: 600,
+    width: 350,
     borderRadius: 4,
     borderWidth: 2,
     borderColor: "#E8E8E8",
     justifyContent: "center",
     backgroundColor: "white",
+    resizeMode: "contain",
   },
   text: {
     textAlign: "center",
