@@ -9,7 +9,7 @@ function* range(start, end) {
   }
 }
 
-class Exemple extends Component {
+class Swiperscreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -145,7 +145,7 @@ class Exemple extends Component {
   }
 }
 
-export default Exemple;
+export default Swiperscreen;
 
 const styles = StyleSheet.create({
   container: {

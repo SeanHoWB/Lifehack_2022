@@ -1,40 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, SafeAreaView, Image } from 'react-native';
-import Exemple from './components/Swiper.js';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Swiperscreen from './components/Swiper.js';
+import Homescreen from './components/Homescreen.js';
 
 const handlePress = () => {
-  console.log("Returning Exemple")
-  return(<Exemple />)
+  console.log("Test run")
 }
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <Image 
-        style={styles.image}
-        source={require('./assets/RecycleSymbol.png')} 
-      />
-      <Text>{'\n'}Welcome to MeFirstApp!</Text>
-      <Text>Log in to begin your recycling journey{'\n'}{'\n'}</Text>
-      <Button 
-        onPress = {handlePress}
-        title={"Login"}
-      />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Homescreen} />
+        <Stack.Screen name="Swiperscreen" component={Swiperscreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    height: 100,
-    width: 100,
-    resizeMode: 'contain',
-  },
-});
