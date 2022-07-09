@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Swiper from "react-native-deck-swiper";
 import { StyleSheet, Image, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 // demo purposes only
 // function* range(start, end) {
@@ -14,27 +15,25 @@ class Swiperscreen extends Component {
     super(props);
     this.state = {
       cards: [
-        {img: require('../assets/Images/Image0.jpg')},
-        {img: require('../assets/Images/Image1.jpg')},
-        {img: require('../assets/Images/Image2.jpg')},
-        {img: require('../assets/Images/Image3.jpg')},
-        {img: require('../assets/Images/Image4.jpg')},
-        {img: require('../assets/Images/Image5.jpg')},
-        {img: require('../assets/Images/Image6.jpg')},
-        {img: require('../assets/Images/Image7.jpg')},
-        {img: require('../assets/Images/Image8.jpg')},
-        {img: require('../assets/Images/Image9.jpg')},
-        {img: require('../assets/Images/Image10.jpg')},
-        {img: require('../assets/Images/Image11.jpg')},
-        
+        {img: require('../assets/Images/Image0.jpg'), ans: "right"},
+        {img: require('../assets/Images/Image1.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image2.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image3.jpg'), ans: "right"},
+        {img: require('../assets/Images/Image4.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image5.jpg'), ans: "right"},
+        {img: require('../assets/Images/Image6.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image7.jpg'), ans: "right"},
+        {img: require('../assets/Images/Image8.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image9.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image10.jpg'), ans: "left"},
+        {img: require('../assets/Images/Image11.jpg'), ans: "right"},
       ],
-      swipedAllCards: false,
-      swipeDirection: "",
       cardIndex: 0,
+      score: 0,
     };
   }
 
-  renderCard = (card, index) => {
+  renderCard = (card) => {
     return (
       <Image 
         style={styles.card}
@@ -43,21 +42,19 @@ class Swiperscreen extends Component {
     );
   };
 
-  onSwiped = (type) => {
-    console.log(`User has swiped ${type}`);
+  onSwiped = (type, card) => {
+    this.state.cardIndex++;
+    if (type == card.ans) {
+      this.state.score++
+    }
   };
 
-  onSwipedAllCards = () => {
-    this.setState({
-      swipedAllCards: true,
-    });
-  };
-
-  swipeLeft = () => {
-    this.swiper.swipeLeft();
-  };
+  // swipeLeft = () => {
+  //   this.swiper.swipeLeft();
+  // };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Swiper
@@ -65,14 +62,14 @@ class Swiperscreen extends Component {
             this.swiper = swiper;
           }}
           // onSwiped={() => this.onSwiped("general")}
-          onSwipedLeft={() => this.onSwiped("left")}
-          onSwipedRight={() => this.onSwiped("right")}
-          onTapCard={this.swipeLeft}
+          // onTapCard={this.swipeLeft}
           cards={this.state.cards}
           cardIndex={this.state.cardIndex}
+          onSwipedLeft={() => this.onSwiped("left", this.state.cards[this.state.cardIndex])}
+          onSwipedRight={() => this.onSwiped("right", this.state.cards[this.state.cardIndex])}
           cardVerticalMargin={80}
           renderCard={this.renderCard}
-          onSwipedAll={this.onSwipedAllCards}
+          onSwipedAll={() => navigation.push("Congratulations", {score: this.state.score})}
           stackSize={3}
           stackSeparation={15}
           verticalSwipe={false}
@@ -165,7 +162,10 @@ class Swiperscreen extends Component {
   }
 }
 
-export default Swiperscreen;
+export default function(props) {
+  const navigation = useNavigation();
+  return <Swiperscreen {...props} navigation = {navigation} />;
+}
 
 const styles = StyleSheet.create({
   container: {
