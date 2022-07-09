@@ -9,7 +9,7 @@ function* range(start, end) {
   }
 }
 
-export default class Exemple extends Component {
+class Exemple extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,6 +144,8 @@ export default class Exemple extends Component {
     );
   }
 }
+
+export default Exemple;
 
 const styles = StyleSheet.create({
   container: {
