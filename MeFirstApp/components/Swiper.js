@@ -1,6 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Swiper from "react-native-deck-swiper";
 import { Button, StyleSheet, Text, View } from "react-native";
+
+const handlePress = () => {
+  console.log("Button pressed");
+  return "1";
+};
 
 // demo purposes only
 function* range(start, end) {
@@ -140,6 +145,7 @@ class Swiperscreen extends Component {
         >
           <Button onPress={() => this.swiper.swipeBack()} title="Swipe Back" />
         </Swiper>
+        <Button onClick={() => handlePress} title="Start" />
       </View>
     );
   }

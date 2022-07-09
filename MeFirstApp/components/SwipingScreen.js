@@ -4,5 +4,9 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import Exemple from "./Swiper.js";
 
 export default function Swipingscreen({ navigation }) {
-  return <Exemple />;
+  return (
+    <SafeAreaView style={styles.container}>
+      <Exemple />;
+    </SafeAreaView>
+  );
 }
